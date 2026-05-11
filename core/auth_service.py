@@ -9,6 +9,7 @@ import streamlit as st
 import yaml
 
 from core.config import APP_TITLE, AUTH_CONFIG_PATH
+from core.time_context import format_datetime_brasilia, now_local
 
 
 @st.cache_data(show_spinner=False)
@@ -159,6 +160,13 @@ def render_login_styles() -> None:
             font-size: 12px;
             line-height: 1.45;
         }
+        .fire-login-version {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.35;
+            text-align: center;
+        }
         @media (max-width: 900px) {
             .block-container {
                 padding-top: 2rem !important;
@@ -255,6 +263,15 @@ def render_login() -> None:
                 <div class="fire-login-runtime">
                     Preparado para execucao local, Codebook e container, usando as
                     credenciais configuradas no ambiente da aplicacao.
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            version_label = escape(format_datetime_brasilia(now_local()))
+            st.markdown(
+                f"""
+                <div class="fire-login-version">
+                    Versao v1 | {version_label}
                 </div>
                 """,
                 unsafe_allow_html=True,
